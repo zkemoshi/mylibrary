@@ -1,4 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
 }
 
 const mongoose = require('mongoose');
@@ -21,7 +22,7 @@ app.use(express.static('public'));
 app.use('/', indexRouter);
 
 // Database Connection
-mongoose.connect('mongodb://localhost/mylibrary', {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
