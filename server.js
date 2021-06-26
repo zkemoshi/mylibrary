@@ -9,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 
 // Routes
 const indexRouter = require('./routes/index');
+const authorRouter = require('./routes/authors');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 
 // Route Middleware
 app.use('/', indexRouter);
+app.use('/authors', authorRouter);
 
 // Database Connection
 mongoose.connect(process.env.DATABASE_URL, {
