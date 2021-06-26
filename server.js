@@ -1,0 +1,32 @@
+if (process.env.NODE_ENV !== 'production') {
+}
+
+const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const expressLayouts = require('express-ejs-layouts');
+
+// Routes
+const indexRouter = require('./routes/index');
+
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.set('layout', 'layouts/layout');
+
+// Middlewares
+app.use(expressLayouts);
+app.use(express.static('public'));
+
+// Route Middleware
+app.use('/', indexRouter);
+
+// Database Connection
+mongoose.connect('mongodb://localhost/mylibrary', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('Connected to Mongoose..'));
+
+app.listen(process.env.PORT || 3000);
