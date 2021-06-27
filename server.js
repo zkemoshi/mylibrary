@@ -18,6 +18,8 @@ app.set('layout', 'layouts/layout');
 // Middlewares
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
 // Route Middleware
 app.use('/', indexRouter);
